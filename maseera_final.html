@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مسيرة ✦</title>
+
+<!-- ════ PWA ════ -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0ea5e9" id="themeMetaColor">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="مسيرة">
+<meta name="description" content="تطبيق شخصي لتتبع الأهداف والمهام اليومية والمذكرة">
+<!-- أيقونة iOS (SVG مضمّن كـ data URI) -->
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjQwIiBmaWxsPSIjMGUxNjIzIi8+PHJlY3QgeD0iMTUiIHk9IjE1IiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgcng9IjI4IiBmaWxsPSJ1cmwoI2cpIi8+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMzhiZGY4Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYTc4YmZhIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHRleHQgeD0iOTAiIHk9IjExNSIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjkwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+8J+MgTwvdGV4dD48L3N2Zz4=">
+<!-- ════════ -->
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#080d14;
+  --surface:#0e1623;
+  --surface2:#131d2e;
+  --surface3:#192338;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.12);
+  --sky:#38bdf8;
+  --sky2:#0ea5e9;
+  --skyglow:rgba(56,189,248,0.15);
+  --gold:#fbbf24;
+  --goldglow:rgba(251,191,36,0.15);
+  --emerald:#34d399;
+  --rose:#fb7185;
+  --violet:#a78bfa;
+  --text:#e2e8f0;
+  --textsoft:#94a3b8;
+  --textfaint:#475569;
+  --r:14px;
+  --rsm:10px;
+}
+body.light{
+  --bg:#f0f4f8;
+  --surface:#ffffff;
+  --surface2:#f8fafc;
+  --surface3:#eef2f7;
+  --border:rgba(0,0,0,0.07);
+  --border2:rgba(0,0,0,0.13);
+  --text:#1e293b;
+  --textsoft:#475569;
+  --textfaint:#94a3b8;
+  --skyglow:rgba(14,165,233,0.09);
+  --goldglow:rgba(245,158,11,0.09);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 15% -5%,rgba(56,189,248,0.07) 0%,transparent 60%),radial-gradient(ellipse 55% 45% at 85% 105%,rgba(167,139,250,0.05) 0%,transparent 55%);pointer-events:none;z-index:0}
+
+/* LAYOUT */
+.shell{display:flex;min-height:100vh;position:relative;z-index:1}
+
+/* SIDEBAR */
+.sidebar{width:255px;flex-shrink:0;background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;position:fixed;right:0;top:0;bottom:0;z-index:100;transition:transform .3s ease;overflow-y:auto;overflow-x:hidden}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+.logo-wrap{padding:1.5rem 1.25rem 1.1rem;display:flex;align-items:center;gap:.75rem;border-bottom:1px solid var(--border)}
+.logo-gem{width:38px;height:38px;background:linear-gradient(135deg,var(--sky),var(--violet));border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;box-shadow:0 0 18px rgba(56,189,248,0.28)}
+.logo-txt{font-family:'Amiri',serif;font-size:1.45rem;font-weight:700;background:linear-gradient(120deg,var(--sky),var(--text));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.logo-ver{font-size:.6rem;color:var(--textfaint);font-family:'Tajawal',sans-serif;-webkit-text-fill-color:var(--textfaint);margin-top:-2px}
+
+/* XP PANEL */
+.xp-panel{margin:.85rem 1rem;background:var(--surface2);border-radius:var(--r);padding:.9rem;border:1px solid var(--border)}
+.xp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.xp-lvl{font-size:.72rem;font-weight:800;color:var(--sky);text-transform:uppercase;letter-spacing:.05em}
+.xp-pts{font-size:.82rem;font-weight:800;color:var(--gold)}
+.xp-track{height:5px;background:var(--border2);border-radius:3px;overflow:hidden;margin-bottom:.7rem}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--sky),var(--violet));border-radius:3px;transition:width .7s cubic-bezier(.4,0,.2,1)}
+.xp-row{display:flex;gap:.6rem}
+.xp-box{flex:1;background:var(--surface3);border-radius:8px;padding:.35rem .2rem;text-align:center}
+.xp-val{font-size:1.05rem;font-weight:900;color:var(--text)}
+.xp-lbl{font-size:.6rem;color:var(--textfaint);margin-top:.1rem}
+
+/* NAV */
+.nav{padding:.4rem .7rem;flex:1}
+.nav-sec{font-size:.6rem;font-weight:800;color:var(--textfaint);text-transform:uppercase;letter-spacing:.08em;padding:.65rem .75rem .3rem}
+.nav-btn{display:flex;align-items:center;gap:.7rem;padding:.65rem .8rem;border-radius:var(--rsm);cursor:pointer;transition:all .2s;color:var(--textsoft);font-size:.88rem;font-weight:500;border:none;background:transparent;width:100%;text-align:right;font-family:'Tajawal',sans-serif;margin-bottom:1px;position:relative;overflow:hidden}
+.nav-btn:hover{background:var(--surface2);color:var(--text)}
+.nav-btn.active{background:var(--skyglow);color:var(--sky);font-weight:700}
+.nav-btn.active::before{content:'';position:absolute;right:0;top:20%;bottom:20%;width:3px;background:var(--sky);border-radius:3px 0 0 3px}
+.nav-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
+.nav-badge{margin-right:auto;background:var(--sky);color:#fff;border-radius:20px;font-size:.6rem;font-weight:800;padding:.15rem .45rem;min-width:18px;text-align:center}
+
+/* FOOTER */
+.sf{padding:.85rem 1rem;border-top:1px solid var(--border);display:flex;gap:.4rem}
+.sfbtn{flex:1;padding:.55rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--rsm);cursor:pointer;font-size:.95rem;text-align:center;transition:all .2s;color:var(--textsoft)}
+.sfbtn:hover{background:var(--surface3);color:var(--text);border-color:var(--border2)}
+
+/* TOPBAR */
+.main{flex:1;margin-right:255px;min-height:100vh;display:flex;flex-direction:column}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(8,13,20,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:.8rem 1.75rem;display:flex;align-items:center;justify-content:space-between}
+body.light .topbar{background:rgba(240,244,248,.9)}
+.tb-left{display:flex;align-items:center;gap:.7rem}
+.tb-title{font-size:1.05rem;font-weight:800;color:var(--text)}
+.tb-badges{display:flex;align-items:center;gap:.5rem}
+.badge{display:flex;align-items:center;gap:.35rem;padding:.3rem .75rem;background:var(--surface2);border:1px solid var(--border);border-radius:30px;font-size:.8rem;font-weight:700;color:var(--textsoft)}
+.badge .v{font-size:.9rem}
+.badge.fire{background:linear-gradient(135deg,rgba(251,113,133,0.15),rgba(251,191,36,0.08));border-color:rgba(251,113,133,0.25)}
+.badge.fire .v{color:var(--rose)}
+.badge.pts .v{color:var(--gold)}
+.badge.lv .v{color:var(--violet)}
+.mob-menu{background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--textsoft);padding:.4rem .6rem;cursor:pointer;font-size:1.1rem;display:none}
+
+/* PAGE */
+.page{padding:1.75rem;flex:1}
+.tab{display:none}
+.tab.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTION HEADER */
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.4rem}
+.sh-title{font-size:1.2rem;font-weight:800;color:var(--text)}
+.sh-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);transition:all .25s}
+.card:hover{border-color:var(--border2);box-shadow:0 8px 30px rgba(0,0,0,.25)}
+
+/* BUTTONS */
+.btn{padding:.5rem 1rem;border:none;border-radius:var(--rsm);font-size:.85rem;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+.btn-sky{background:var(--sky2);color:#fff}
+.btn-sky:hover{background:var(--sky);transform:translateY(-1px)}
+.btn-rose{background:rgba(251,113,133,0.15);color:var(--rose);border:1px solid rgba(251,113,133,0.3)}
+.btn-rose:hover{background:rgba(251,113,133,0.25)}
+.btn-gold{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff}
+.btn-gold:hover{filter:brightness(1.1)}
+.btn-em{background:rgba(52,211,153,0.15);color:var(--emerald);border:1px solid rgba(52,211,153,0.3)}
+.btn-ghost{background:var(--surface2);color:var(--textsoft);border:1px solid var(--border)}
+.btn-ghost:hover{background:var(--surface3);color:var(--text)}
+.btn-sm{padding:.35rem .7rem;font-size:.78rem}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+
+/* DASHBOARD */
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.9rem;margin-bottom:1.5rem}
+.dc{padding:1.25rem;position:relative;overflow:hidden}
+.dc-glow{position:absolute;top:-25px;left:-25px;width:90px;height:90px;border-radius:50%;opacity:.5;filter:blur(25px)}
+.dc-lbl{font-size:.7rem;color:var(--textfaint);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem;position:relative}
+.dc-val{font-size:2rem;font-weight:900;color:var(--text);line-height:1;position:relative}
+.dc-sub{font-size:.75rem;color:var(--textsoft);margin-top:.25rem;position:relative}
+
+/* TODAY PROGRESS */
+.today-bar-wrap{margin-bottom:1.5rem}
+.today-bar-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.today-bar-lbl{font-size:.85rem;font-weight:700;color:var(--text)}
+.today-bar-pct{font-size:.85rem;font-weight:800;color:var(--sky)}
+.today-track{height:10px;background:var(--border2);border-radius:5px;overflow:hidden}
+.today-fill{height:100%;background:linear-gradient(90deg,var(--sky),var(--violet));border-radius:5px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+
+/* QUOTE */
+.quote-strip{background:linear-gradient(135deg,var(--surface2),var(--surface3));border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.35rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:all .25s;margin-bottom:1rem}
+.quote-strip:hover{border-color:var(--border2)}
+.quote-ico{font-size:1.6rem;flex-shrink:0}
+.quote-txt{font-size:.88rem;color:var(--textsoft);font-style:italic;line-height:1.55;font-family:'Amiri',serif}
+
+/* STREAK FIRE CARD */
+.streak-hero{background:linear-gradient(135deg,rgba(251,113,133,0.12),rgba(251,191,36,0.08));border:1px solid rgba(251,113,133,0.2);border-radius:var(--r);padding:1.1rem 1.35rem;display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.streak-big{font-size:2.5rem;font-weight:900;color:var(--rose);line-height:1}
+.streak-info{flex:1}
+.streak-lbl{font-size:.75rem;color:var(--textfaint);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.streak-msg{font-size:.85rem;color:var(--textsoft);margin-top:.2rem}
+
+/* BACKUP BANNER */
+.backup-banner{background:linear-gradient(135deg,rgba(251,191,36,0.1),rgba(251,113,133,0.06));border:1px solid rgba(251,191,36,0.25);border-radius:var(--r);padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+
+/* GOALS */
+.goals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.9rem}
+.goal-card{padding:1.25rem;position:relative;overflow:hidden}
+.goal-accent{position:absolute;top:0;right:0;left:0;height:3px;border-radius:var(--r) var(--r) 0 0}
+.goal-tag{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .65rem;border-radius:20px;font-size:.68rem;font-weight:800;margin-bottom:.55rem;border:1px solid}
+.cat-h{background:rgba(52,211,153,0.1);color:var(--emerald);border-color:rgba(52,211,153,0.25)}
+.cat-s{background:rgba(167,139,250,0.1);color:var(--violet);border-color:rgba(167,139,250,0.25)}
+.cat-r{background:rgba(251,191,36,0.1);color:var(--gold);border-color:rgba(251,191,36,0.25)}
+.cat-m{background:rgba(56,189,248,0.1);color:var(--sky);border-color:rgba(56,189,248,0.25)}
+.goal-name{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.25rem}
+.goal-desc{font-size:.8rem;color:var(--textfaint);margin-bottom:.6rem;line-height:1.5}
+.goal-dl{font-size:.75rem;color:var(--textfaint);margin-bottom:.6rem;display:flex;align-items:center;gap:.3rem}
+.prog-wrap{margin:.65rem 0}
+.prog-meta{display:flex;justify-content:space-between;font-size:.72rem;color:var(--textfaint);margin-bottom:.3rem}
+.prog-track{height:7px;background:var(--border2);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--sky),var(--violet));transition:width .5s}
+.goal-step-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.35rem;font-size:.82rem;color:var(--textsoft)}
+.goal-step-row input[type=checkbox]{accent-color:var(--sky);width:15px;height:15px;cursor:pointer;flex-shrink:0}
+.goal-actions{display:flex;gap:.5rem;margin-top:.9rem;padding-top:.75rem;border-top:1px solid var(--border)}
+
+/* DAILY TASKS */
+.tasks-list{display:flex;flex-direction:column;gap:.65rem}
+.task-row{padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;transition:all .2s}
+.task-check{width:26px;height:26px;border-radius:50%;border:2px solid var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .2s;flex-shrink:0;background:var(--surface2)}
+.task-check.done{background:var(--emerald);border-color:var(--emerald);box-shadow:0 0 12px rgba(52,211,153,0.35)}
+.task-row.done-row{opacity:.7}
+.task-info{flex:1;min-width:0}
+.task-name{font-size:.92rem;font-weight:600;color:var(--text);transition:all .2s}
+.task-row.done-row .task-name{text-decoration:line-through;color:var(--textfaint)}
+.task-pts{font-size:.72rem;color:var(--textfaint);margin-top:.15rem}
+.task-streak-badge{display:flex;align-items:center;gap:.2rem;background:rgba(251,113,133,0.1);border:1px solid rgba(251,113,133,0.2);border-radius:20px;padding:.2rem .55rem;font-size:.7rem;font-weight:700;color:var(--rose);flex-shrink:0}
+.task-actions{display:flex;gap:.35rem}
+.task-del{background:transparent;border:none;color:var(--textfaint);cursor:pointer;font-size:.85rem;padding:.25rem;border-radius:6px;transition:all .2s}
+.task-del:hover{color:var(--rose);background:rgba(251,113,133,0.1)}
+.daily-summary{background:linear-gradient(135deg,var(--surface2),var(--surface3));border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.ds-item{text-align:center;flex:1}
+.ds-val{font-size:1.5rem;font-weight:900;color:var(--text)}
+.ds-lbl{font-size:.68rem;color:var(--textfaint);margin-top:.1rem}
+
+/* SAVINGS */
+.sav-summary{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:1.25rem}
+.sav-big{padding:1.35rem;text-align:center}
+.sav-amount{font-size:1.9rem;font-weight:900;color:var(--emerald);line-height:1}
+.sav-lbl{font-size:.75rem;color:var(--textfaint);margin-top:.3rem}
+.sav-list{display:flex;flex-direction:column;gap:.5rem}
+.sav-item{padding:.85rem 1.1rem;display:flex;align-items:center;justify-content:space-between}
+.sav-item-amount{font-size:1rem;font-weight:800;color:var(--emerald)}
+.sav-item-note{font-size:.78rem;color:var(--textsoft);margin-top:.15rem}
+.sav-item-date{font-size:.72rem;color:var(--textfaint)}
+.sav-item-del{background:transparent;border:none;color:var(--textfaint);cursor:pointer;font-size:.85rem;padding:.2rem;border-radius:6px;transition:all .2s}
+.sav-item-del:hover{color:var(--rose);background:rgba(251,113,133,0.1)}
+
+/* REWARDS */
+.rewards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.9rem}
+.reward-card{padding:1.2rem}
+.reward-name{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.3rem}
+.reward-desc{font-size:.8rem;color:var(--textfaint);margin-bottom:.6rem;line-height:1.45}
+.reward-cost{font-size:.85rem;font-weight:800;color:var(--gold);margin-bottom:.85rem}
+.reward-claimed{display:flex;align-items:center;gap:.4rem;color:var(--emerald);font-size:.82rem;font-weight:700;padding:.5rem 0}
+
+/* ACHIEVEMENTS */
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.9rem}
+.ach-card{padding:1.35rem;text-align:center;border-radius:var(--r);border:1px solid var(--border);background:var(--surface);transition:all .3s;position:relative;overflow:hidden}
+.ach-card.unlocked{border-color:rgba(251,191,36,0.3);background:linear-gradient(135deg,var(--surface),rgba(251,191,36,0.05))}
+.ach-card.unlocked::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--rose))}
+.ach-card.locked{opacity:.45;filter:grayscale(.6)}
+.ach-icon{font-size:2.5rem;margin-bottom:.6rem}
+.ach-name{font-size:.9rem;font-weight:800;color:var(--text);margin-bottom:.25rem}
+.ach-desc{font-size:.75rem;color:var(--textfaint)}
+.ach-badge{position:absolute;top:.6rem;left:.6rem;background:var(--gold);color:#fff;font-size:.55rem;font-weight:900;padding:.15rem .4rem;border-radius:10px;letter-spacing:.04em}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.9rem;margin-bottom:1.5rem}
+.stat-tile{padding:1.25rem;text-align:center}
+.stat-val{font-size:2rem;font-weight:900;color:var(--text);line-height:1;margin-bottom:.3rem}
+.stat-lbl{font-size:.72rem;color:var(--textfaint);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.stat-progress-wrap{margin-bottom:1.5rem}
+.stat-progress-item{display:flex;align-items:center;gap:.85rem;padding:.75rem 0;border-bottom:1px solid var(--border)}
+.stat-progress-item:last-child{border-bottom:none}
+.spi-label{font-size:.85rem;color:var(--textsoft);width:130px;flex-shrink:0}
+.spi-track{flex:1;height:7px;background:var(--border2);border-radius:4px;overflow:hidden}
+.spi-fill{height:100%;border-radius:4px;transition:width .8s}
+.spi-val{font-size:.8rem;font-weight:800;color:var(--text);width:40px;text-align:left;flex-shrink:0}
+
+/* CHARTS */
+.chart-card{padding:1.35rem;margin-bottom:1rem}
+.chart-title{font-size:.92rem;font-weight:800;color:var(--text);margin-bottom:1rem}
+
+/* JOURNAL */
+.j-hero{background:linear-gradient(135deg,var(--surface2),var(--surface3));border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;text-align:center;margin-bottom:1.25rem}
+.j-hero-date{font-size:.8rem;color:var(--textfaint);margin-bottom:.3rem}
+.j-hero-title{font-size:1.3rem;font-weight:800;color:var(--text);margin-bottom:.25rem;font-family:'Amiri',serif}
+.j-hero-sub{font-size:.82rem;color:var(--textsoft)}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.9rem;margin-bottom:1.25rem}
+.metric-card{padding:1rem;text-align:center}
+.metric-icon{font-size:1.6rem;margin-bottom:.35rem}
+.metric-label{font-size:.75rem;color:var(--textfaint);font-weight:700;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.04em}
+.metric-val-badge{display:inline-block;background:var(--sky2);color:#fff;border-radius:20px;font-size:.85rem;font-weight:900;padding:.2rem .65rem;margin-bottom:.5rem;min-width:36px;text-align:center}
+input[type=range].nice{width:100%;-webkit-appearance:none;height:5px;background:var(--border2);border-radius:3px;outline:none}
+input[type=range].nice::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--sky2);cursor:pointer;box-shadow:0 0 8px rgba(14,165,233,0.4)}
+.metric-range-labels{display:flex;justify-content:space-between;font-size:.62rem;color:var(--textfaint);margin-top:.35rem}
+.mood-grid{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;justify-content:center}
+.mood-btn{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rsm);padding:.55rem .8rem;cursor:pointer;transition:all .2s;text-align:center;min-width:70px}
+.mood-btn:hover{border-color:var(--border2)}
+.mood-btn.selected{border-color:var(--sky);background:var(--skyglow)}
+.mood-emoji{display:block;font-size:1.4rem;margin-bottom:.2rem}
+.mood-label{font-size:.68rem;color:var(--textsoft);font-family:'Tajawal',sans-serif}
+.j-analysis{background:linear-gradient(135deg,var(--skyglow),transparent);border:1px solid rgba(56,189,248,0.2);border-radius:var(--r);padding:1rem 1.25rem;margin-top:1rem;display:none}
+.hist-entry{padding:1rem;border-bottom:1px solid var(--border)}
+.hist-entry:last-child{border-bottom:none}
+.hist-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.hist-date{font-size:.78rem;color:var(--textfaint)}
+.hist-chips{display:flex;flex-wrap:wrap;gap:.35rem}
+.chip{display:inline-flex;align-items:center;gap:.2rem;padding:.2rem .55rem;border-radius:20px;font-size:.68rem;font-weight:700;background:var(--surface3);border:1px solid var(--border);color:var(--textsoft)}
+.chip.g{background:rgba(52,211,153,0.1);border-color:rgba(52,211,153,0.25);color:var(--emerald)}
+.chip.o{background:rgba(251,191,36,0.1);border-color:rgba(251,191,36,0.25);color:var(--gold)}
+.chip.r{background:rgba(251,113,133,0.1);border-color:rgba(251,113,133,0.25);color:var(--rose)}
+
+/* ARCHIVE */
+.archive-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.9rem}
+.arch-card{padding:1.1rem;opacity:.8;border-right:3px solid var(--emerald)}
+.arch-title{font-size:.95rem;font-weight:700;color:var(--text)}
+.arch-meta{font-size:.75rem;color:var(--textfaint);margin-top:.3rem}
+
+/* MODALS */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:999;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal.open{display:flex}
+.modal-box{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:1.5rem;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;animation:fadeUp .25s ease}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
+.modal-title{font-size:1.05rem;font-weight:800;color:var(--text)}
+.modal-x{background:var(--surface2);border:1px solid var(--border);border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;color:var(--textsoft);transition:all .2s;font-family:'Tajawal',sans-serif}
+.modal-x:hover{background:var(--surface3);color:var(--text)}
+.form-group{margin-bottom:1rem}
+.form-label{display:block;font-size:.8rem;font-weight:700;color:var(--textsoft);margin-bottom:.4rem}
+.form-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--rsm);color:var(--text);font-family:'Tajawal',sans-serif;font-size:.9rem;padding:.65rem .85rem;transition:all .2s;outline:none}
+.form-input:focus{border-color:var(--sky);box-shadow:0 0 0 3px rgba(56,189,248,0.12)}
+textarea.form-input{min-height:80px;resize:vertical}
+select.form-input{cursor:pointer}
+.form-hint{font-size:.72rem;color:var(--textfaint);margin-top:.3rem}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--surface3);border:1px solid var(--border2);color:var(--text);padding:.7rem 1.35rem;border-radius:30px;font-size:.88rem;font-weight:600;z-index:9999;opacity:0;transition:all .35s cubic-bezier(.4,0,.2,1);white-space:nowrap;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* EMPTY */
+.empty{text-align:center;padding:3rem 1rem;color:var(--textfaint)}
+.empty-ico{font-size:3rem;margin-bottom:.75rem;opacity:.5}
+.empty-txt{font-size:.9rem}
+
+/* MOBILE */
+@media(max-width:768px){
+  .sidebar{transform:translateX(100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-right:0}
+  .mob-menu{display:flex}
+  .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:99}
+  .mob-overlay.active{display:block}
+  .dash-grid{grid-template-columns:1fr 1fr}
+  .page{padding:1rem}
+  .tb-badges .badge:nth-child(3){display:none}
+}
+
+/* CONFETTI ANIMATION */
+@keyframes confetti-fall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+.confetti-piece{position:fixed;width:8px;height:8px;border-radius:2px;z-index:9998;pointer-events:none;animation:confetti-fall 2.5s ease-in forwards}
+
+/* PULSE */
+@keyframes pulse-ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.5);opacity:0}}
+.pulse{position:relative}
+.pulse::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--emerald);animation:pulse-ring .8s ease-out}
+
+/* SCROLL HIDDEN */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:5px}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="logo-wrap">
+    <div class="logo-gem">🎯</div>
+    <div>
+      <div class="logo-txt">مسيرة</div>
+      <div class="logo-ver">v3.0 ✦ النسخة الكاملة</div>
+    </div>
+  </div>
+
+  <div class="xp-panel">
+    <div class="xp-top">
+      <span class="xp-lvl">المستوى <span id="sLevel">1</span></span>
+      <span class="xp-pts">⭐ <span id="sPts">0</span></span>
+    </div>
+    <div class="xp-track"><div class="xp-fill" id="xpFill" style="width:0%"></div></div>
+    <div class="xp-row">
+      <div class="xp-box"><div class="xp-val" id="sStreak">0</div><div class="xp-lbl">🔥 سلسلة</div></div>
+      <div class="xp-box"><div class="xp-val" id="sGoals">0/0</div><div class="xp-lbl">🎯 أهداف</div></div>
+      <div class="xp-box"><div class="xp-val" id="sDone">0</div><div class="xp-lbl">✅ اليوم</div></div>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-sec">الرئيسية</div>
+    <button class="nav-btn active" data-tab="dashboard"><span class="nav-icon">🏠</span> لوحة التحكم</button>
+
+    <div class="nav-sec" style="margin-top:.5rem">الإنتاجية</div>
+    <button class="nav-btn" data-tab="goals"><span class="nav-icon">🎯</span> الأهداف</button>
+    <button class="nav-btn" data-tab="daily"><span class="nav-icon">✅</span> المهام اليومية</button>
+    <button class="nav-btn" data-tab="journal"><span class="nav-icon">📔</span> مذكرتي</button>
+
+    <div class="nav-sec" style="margin-top:.5rem">التقارير</div>
+    <button class="nav-btn" data-tab="charts"><span class="nav-icon">📈</span> الرسوم البيانية</button>
+    <button class="nav-btn" data-tab="stats"><span class="nav-icon">📊</span> الإحصائيات</button>
+
+    <div class="nav-sec" style="margin-top:.5rem">أخرى</div>
+    <button class="nav-btn" data-tab="savings"><span class="nav-icon">💰</span> الادخار</button>
+    <button class="nav-btn" data-tab="rewards"><span class="nav-icon">🎁</span> المكافآت</button>
+    <button class="nav-btn" data-tab="achievements"><span class="nav-icon">🏆</span> الإنجازات</button>
+    <button class="nav-btn" data-tab="archive"><span class="nav-icon">📦</span> الأرشيف</button>
+  </nav>
+
+  <div class="sf">
+    <button class="sfbtn" onclick="toggleTheme()" id="themeBtn" title="تغيير المظهر">🌙</button>
+    <button class="sfbtn" onclick="exportData()" title="نسخ احتياطي">💾</button>
+    <button class="sfbtn" onclick="triggerImport()" title="استيراد">📂</button>
+    <button class="sfbtn" onclick="showRandQuote()" title="اقتباس">💡</button>
+    <button class="sfbtn" id="installBtnSidebar" style="display:none" onclick="installPWA()" title="تثبيت التطبيق">📲</button>
+  </div>
+  <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
+</aside>
+
+<div class="mob-overlay" id="mobOverlay" onclick="closeSidebar()"></div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="tb-left">
+      <button class="mob-menu" onclick="openSidebar()">☰</button>
+      <span class="tb-title" id="pageTitle">لوحة التحكم</span>
+    </div>
+    <div class="tb-badges">
+      <div class="badge fire">🔥 <span class="v" id="tStreak">0</span> يوم</div>
+      <div class="badge pts">⭐ <span class="v" id="tPts">0</span></div>
+      <div class="badge lv">Lv <span class="v" id="tLv">1</span></div>
+      <button class="btn btn-sky btn-sm" id="installBtn" style="display:none" onclick="installPWA()" title="ثبّت التطبيق على جهازك">📲 تثبيت</button>
+    </div>
+  </div>
+
+  <!-- PWA UPDATE BANNER -->
+  <div id="updateBanner" style="display:none;background:linear-gradient(135deg,rgba(56,189,248,0.15),rgba(167,139,250,0.1));border-bottom:1px solid rgba(56,189,248,0.25);padding:.65rem 1.75rem;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+    <div style="font-size:.85rem;color:var(--text);font-weight:600">🆕 يوجد تحديث جديد لتطبيق مسيرة!</div>
+    <button class="btn btn-sky btn-sm" onclick="applyUpdate()">🔄 تحديث الآن</button>
+  </div>
+
+  <div class="page">
+
+    <!-- DASHBOARD -->
+    <div id="tab-dashboard" class="tab active">
+      <div class="dash-grid">
+        <div class="card dc">
+          <div class="dc-glow" style="background:var(--sky)"></div>
+          <div class="dc-lbl">إجمالي الأهداف</div>
+          <div class="dc-val" id="dGoals">0</div>
+          <div class="dc-sub">هدف مسجّل</div>
+        </div>
+        <div class="card dc">
+          <div class="dc-glow" style="background:var(--emerald)"></div>
+          <div class="dc-lbl">أهداف مكتملة</div>
+          <div class="dc-val" id="dDone">0</div>
+          <div class="dc-sub">تم الوصول إليها ✓</div>
+        </div>
+        <div class="card dc">
+          <div class="dc-glow" style="background:var(--gold)"></div>
+          <div class="dc-lbl">مهام اليوم</div>
+          <div class="dc-val" id="dToday">0</div>
+          <div class="dc-sub">من <span id="dTotal">0</span> مهمة</div>
+        </div>
+        <div class="card dc">
+          <div class="dc-glow" style="background:var(--rose)"></div>
+          <div class="dc-lbl">أطول سلسلة</div>
+          <div class="dc-val" id="dLong">0</div>
+          <div class="dc-sub">يوم متتالي 🔥</div>
+        </div>
+      </div>
+
+      <!-- Today Progress Bar -->
+      <div class="today-bar-wrap card" style="padding:1.1rem 1.35rem;margin-bottom:1rem">
+        <div class="today-bar-top">
+          <span class="today-bar-lbl">تقدم اليوم</span>
+          <span class="today-bar-pct" id="todayPct">0%</span>
+        </div>
+        <div class="today-track"><div class="today-fill" id="todayFill" style="width:0%"></div></div>
+      </div>
+
+      <!-- Streak Hero -->
+      <div class="streak-hero" id="streakHero">
+        <div style="font-size:2.5rem">🔥</div>
+        <div class="streak-info">
+          <div class="streak-lbl">السلسلة الحالية</div>
+          <div><span class="streak-big" id="dStreak">0</span> <span style="font-size:.9rem;color:var(--textsoft)">يوم متتالي</span></div>
+          <div class="streak-msg" id="streakMsg">أنجز مهمة اليوم للحفاظ على سلسلتك!</div>
+        </div>
+      </div>
+
+      <!-- Quote -->
+      <div class="quote-strip" onclick="showRandQuote()">
+        <div class="quote-ico">✦</div>
+        <div class="quote-txt" id="dashQuote">اضغط لعرض اقتباس يومي...</div>
+      </div>
+
+      <!-- Backup Banner -->
+      <div class="backup-banner" id="backupBanner" style="display:none">
+        <div style="display:flex;align-items:center;gap:.75rem">
+          <span style="font-size:1.4rem">⚠️</span>
+          <div>
+            <div style="font-weight:800;color:var(--gold);font-size:.85rem">تذكير: لم تحفظ نسخة احتياطية منذ فترة</div>
+            <div style="font-size:.75rem;color:var(--textsoft);margin-top:.15rem">بياناتك في المتصفح فقط — قد تضيع إذا مسحت الكاش</div>
+          </div>
+        </div>
+        <button class="btn btn-sky btn-sm" onclick="exportData()">💾 احفظ الآن</button>
+      </div>
+    </div>
+
+    <!-- GOALS -->
+    <div id="tab-goals" class="tab">
+      <div class="sh">
+        <h2 class="sh-title">🎯 أهدافي</h2>
+        <button class="btn btn-sky" onclick="openModal('goalModal')">➕ هدف جديد</button>
+      </div>
+      <div class="goals-grid" id="goalsGrid"></div>
+    </div>
+
+    <!-- DAILY -->
+    <div id="tab-daily" class="tab">
+      <div class="sh">
+        <h2 class="sh-title">✅ المهام اليومية</h2>
+        <button class="btn btn-sky" onclick="openModal('taskModal')">➕ مهمة جديدة</button>
+      </div>
+      <div class="daily-summary" id="dailySummary"></div>
+      <div class="tasks-list" id="tasksList"></div>
+    </div>
+
+    <!-- SAVINGS -->
+    <div id="tab-savings" class="tab">
+      <div class="sh">
+        <h2 class="sh-title">💰 الادخار</h2>
+        <button class="btn btn-sky" onclick="openModal('savingModal')">➕ تسجيل ادخار</button>
+      </div>
+      <div class="sav-summary">
+        <div class="card sav-big">
+          <div class="sav-amount" id="savTotal">0</div>
+          <div class="sav-lbl">إجمالي المدخرات (دج)</div>
+        </div>
+        <div class="card sav-big">
+          <div class="sav-amount" id="savMonth">0</div>
+          <div class="sav-lbl">هذا الشهر (دج)</div>
+        </div>
+      </div>
+      <div class="card"><div class="sav-list" id="savList"></div></div>
+    </div>
+
+    <!-- REWARDS -->
+    <div id="tab-rewards" class="tab">
+      <div class="sh">
+        <h2 class="sh-title">🎁 المكافآت</h2>
+        <button class="btn btn-sky" onclick="openModal('rewardModal')">➕ مكافأة جديدة</button>
+      </div>
+      <div class="rewards-grid" id="rewardsGrid"></div>
+    </div>
+
+    <!-- ACHIEVEMENTS -->
+    <div id="tab-achievements" class="tab">
+      <div class="sh"><h2 class="sh-title">🏆 الإنجازات</h2></div>
+      <div class="ach-grid" id="achGrid"></div>
+    </div>
+
+    <!-- STATS -->
+    <div id="tab-stats" class="tab">
+      <div class="sh"><h2 class="sh-title">📊 الإحصائيات التفصيلية</h2></div>
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="card" style="padding:1.25rem;margin-bottom:1rem">
+        <div class="chart-title">📅 آخر 30 يوم — معدل الإنجاز</div>
+        <div class="stat-progress-wrap" id="statProgress"></div>
+      </div>
+    </div>
+
+    <!-- CHARTS -->
+    <div id="tab-charts" class="tab">
+      <div class="sh"><h2 class="sh-title">📈 الرسوم البيانية</h2></div>
+      <div class="card chart-card">
+        <div class="chart-title">📅 التقدم الأسبوعي — مهام منجزة</div>
+        <canvas id="weeklyChart" style="max-height:280px"></canvas>
+      </div>
+      <div class="card chart-card">
+        <div class="chart-title">🎯 توزيع الأهداف حسب الفئة</div>
+        <canvas id="catChart" style="max-height:300px"></canvas>
+      </div>
+    </div>
+
+    <!-- ARCHIVE -->
+    <div id="tab-archive" class="tab">
+      <div class="sh"><h2 class="sh-title">📦 الأرشيف — أهداف مكتملة</h2></div>
+      <div class="archive-grid" id="archGrid"></div>
+    </div>
+
+    <!-- JOURNAL -->
+    <div id="tab-journal" class="tab">
+      <div class="j-hero">
+        <div class="j-hero-date" id="jDate"></div>
+        <div class="j-hero-title">📔 كيف كان يومك؟</div>
+        <div class="j-hero-sub">سجّل يومك وسنحلّل لك ما أثّر عليه</div>
+      </div>
+      <div class="metrics-grid">
+        <div class="card metric-card">
+          <div class="metric-icon">🌙</div>
+          <div class="metric-label">ساعات النوم</div>
+          <div class="metric-val-badge" id="vSleep">7</div>
+          <input type="range" class="nice" id="sSleep" min="2" max="12" step=".5" value="7" oninput="$('vSleep').textContent=this.value">
+          <div class="metric-range-labels"><span>2س</span><span>12س</span></div>
+        </div>
+        <div class="card metric-card">
+          <div class="metric-icon">⚡</div>
+          <div class="metric-label">مستوى الطاقة</div>
+          <div class="metric-val-badge" id="vEnergy">5</div>
+          <input type="range" class="nice" id="sEnergy" min="1" max="10" value="5" oninput="$('vEnergy').textContent=this.value">
+          <div class="metric-range-labels"><span>مرهق</span><span>ممتاز</span></div>
+        </div>
+        <div class="card metric-card">
+          <div class="metric-icon">🎯</div>
+          <div class="metric-label">مستوى التركيز</div>
+          <div class="metric-val-badge" id="vFocus">5</div>
+          <input type="range" class="nice" id="sFocus" min="1" max="10" value="5" oninput="$('vFocus').textContent=this.value">
+          <div class="metric-range-labels"><span>مشتت</span><span>مركّز</span></div>
+        </div>
+        <div class="card metric-card">
+          <div class="metric-icon">😣</div>
+          <div class="metric-label">مستوى التوتر</div>
+          <div class="metric-val-badge" id="vStress">3</div>
+          <input type="range" class="nice" id="sStress" min="1" max="10" value="3" oninput="$('vStress').textContent=this.value">
+          <div class="metric-range-labels"><span>مرتاح</span><span>متوتر</span></div>
+        </div>
+        <div class="card metric-card">
+          <div class="metric-icon">🍎</div>
+          <div class="metric-label">جودة التغذية</div>
+          <div class="metric-val-badge" id="vNutrition">5</div>
+          <input type="range" class="nice" id="sNutrition" min="1" max="10" value="5" oninput="$('vNutrition').textContent=this.value">
+          <div class="metric-range-labels"><span>سيئة</span><span>ممتازة</span></div>
+        </div>
+        <div class="card metric-card">
+          <div class="metric-icon">🏃</div>
+          <div class="metric-label">النشاط البدني</div>
+          <div class="metric-val-badge" id="vActivity">3</div>
+          <input type="range" class="nice" id="sActivity" min="1" max="10" value="3" oninput="$('vActivity').textContent=this.value">
+          <div class="metric-range-labels"><span>لا شيء</span><span>مكثف</span></div>
+        </div>
+      </div>
+
+      <div class="card chart-card">
+        <div class="chart-title">كيف كان مزاجك اليوم؟</div>
+        <div class="mood-grid" id="moodPicker">
+          <button class="mood-btn" data-mood="😄" onclick="pickMood(this)"><span class="mood-emoji">😄</span><span class="mood-label">رائع</span></button>
+          <button class="mood-btn" data-mood="🙂" onclick="pickMood(this)"><span class="mood-emoji">🙂</span><span class="mood-label">جيد</span></button>
+          <button class="mood-btn" data-mood="😐" onclick="pickMood(this)"><span class="mood-emoji">😐</span><span class="mood-label">عادي</span></button>
+          <button class="mood-btn" data-mood="😟" onclick="pickMood(this)"><span class="mood-emoji">😟</span><span class="mood-label">سيء</span></button>
+          <button class="mood-btn" data-mood="😰" onclick="pickMood(this)"><span class="mood-emoji">😰</span><span class="mood-label">قلق</span></button>
+          <button class="mood-btn" data-mood="😡" onclick="pickMood(this)"><span class="mood-emoji">😡</span><span class="mood-label">غاضب</span></button>
+          <button class="mood-btn" data-mood="😴" onclick="pickMood(this)"><span class="mood-emoji">😴</span><span class="mood-label">نعسان</span></button>
+          <button class="mood-btn" data-mood="💪" onclick="pickMood(this)"><span class="mood-emoji">💪</span><span class="mood-label">متحمس</span></button>
+        </div>
+        <div class="form-group">
+          <label class="form-label">📝 ملاحظات اليوم <span style="color:var(--textfaint);font-weight:400">(اختياري)</span></label>
+          <textarea class="form-input" id="jNotes" style="min-height:90px" placeholder="ما الذي حدث اليوم؟ ما أعاقك؟ ما شعرت به؟..."></textarea>
+        </div>
+        <button class="btn btn-sky" style="width:100%;padding:.75rem;font-size:.95rem" onclick="saveJournal()">💾 حفظ وعرض تحليل اليوم</button>
+        <div class="j-analysis" id="jAnalysis">
+          <div style="font-size:.9rem;font-weight:800;color:var(--sky);margin-bottom:.65rem">📊 تحليل يومك</div>
+          <div id="jAnalysisContent"></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:1rem">
+        <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--border)">
+          <div class="chart-title" style="margin:0">📅 سجل الأيام السابقة</div>
+        </div>
+        <div id="jHistory"></div>
+      </div>
+    </div>
+
+  </div><!-- /page -->
+</div><!-- /main -->
+</div><!-- /shell -->
+
+<!-- MODALS -->
+<!-- Goal Modal -->
+<div class="modal" id="goalModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 class="modal-title">🎯 هدف جديد</h2>
+      <button class="modal-x" onclick="closeModal('goalModal')">×</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">عنوان الهدف *</label>
+      <input class="form-input" id="gTitle" placeholder="مثال: إتقان اللغة الإنجليزية">
+    </div>
+    <div class="form-group">
+      <label class="form-label">الفئة</label>
+      <select class="form-input" id="gCat">
+        <option value="health">🏃 الصحة</option>
+        <option value="study">📚 الدراسة</option>
+        <option value="religion">🕌 الدين</option>
+        <option value="money">💰 المال</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">الوصف</label>
+      <textarea class="form-input" id="gDesc" placeholder="وصف الهدف وخطوات تحقيقه..."></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">الخطوات (اختياري — كل سطر خطوة)</label>
+      <textarea class="form-input" id="gSteps" placeholder="اشتر كتاباً&#10;خصص ساعة يومياً&#10;..."></textarea>
+      <div class="form-hint">اكتب كل خطوة في سطر منفصل لمتابعة التقدم</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">الموعد النهائي</label>
+      <input type="date" class="form-input" id="gDeadline">
+    </div>
+    <button class="btn btn-sky" style="width:100%;padding:.75rem" onclick="saveGoal()">حفظ الهدف</button>
+  </div>
+</div>
+
+<!-- Task Modal -->
+<div class="modal" id="taskModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 class="modal-title">✅ مهمة يومية جديدة</h2>
+      <button class="modal-x" onclick="closeModal('taskModal')">×</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">اسم المهمة *</label>
+      <input class="form-input" id="tTitle" placeholder="مثال: قراءة 30 دقيقة">
+    </div>
+    <div class="form-group">
+      <label class="form-label">النقاط</label>
+      <select class="form-input" id="tPts">
+        <option value="5">5 نقاط — سهلة</option>
+        <option value="10" selected>10 نقاط — عادية</option>
+        <option value="20">20 نقطة — متوسطة</option>
+        <option value="50">50 نقطة — صعبة</option>
+        <option value="100">100 نقطة — تحدي كبير</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">الفئة</label>
+      <select class="form-input" id="tCat">
+        <option value="health">🏃 الصحة</option>
+        <option value="study">📚 الدراسة</option>
+        <option value="religion">🕌 الدين</option>
+        <option value="money">💰 المال</option>
+        <option value="other">📌 أخرى</option>
+      </select>
+    </div>
+    <button class="btn btn-sky" style="width:100%;padding:.75rem" onclick="saveTask()">إضافة المهمة</button>
+  </div>
+</div>
+
+<!-- Saving Modal -->
+<div class="modal" id="savingModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 class="modal-title">💰 تسجيل ادخار</h2>
+      <button class="modal-x" onclick="closeModal('savingModal')">×</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">المبلغ (دج) *</label>
+      <input type="number" class="form-input" id="savAmount" placeholder="0.00" min="0">
+    </div>
+    <div class="form-group">
+      <label class="form-label">ملاحظة</label>
+      <input class="form-input" id="savNote" placeholder="مثال: راتب شهر يناير">
+    </div>
+    <button class="btn btn-sky" style="width:100%;padding:.75rem" onclick="saveSaving()">حفظ</button>
+  </div>
+</div>
+
+<!-- Reward Modal -->
+<div class="modal" id="rewardModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 class="modal-title">🎁 مكافأة جديدة</h2>
+      <button class="modal-x" onclick="closeModal('rewardModal')">×</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">اسم المكافأة *</label>
+      <input class="form-input" id="rTitle" placeholder="مثال: رحلة ترفيهية">
+    </div>
+    <div class="form-group">
+      <label class="form-label">التكلفة بالنقاط *</label>
+      <input type="number" class="form-input" id="rCost" placeholder="500" min="1">
+    </div>
+    <div class="form-group">
+      <label class="form-label">الوصف</label>
+      <textarea class="form-input" id="rDesc" placeholder="وصف المكافأة..."></textarea>
+    </div>
+    <button class="btn btn-sky" style="width:100%;padding:.75rem" onclick="saveReward()">إضافة المكافأة</button>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+'use strict';
+// ═══════════════════════════════════════
+// HELPERS — defined first, used everywhere
+// ═══════════════════════════════════════
+const $ = id => document.getElementById(id);
+
+let _toastTimer;
+function toast(msg, dur) {
+  dur = dur || 3200;
+  var el = $('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(function(){ el.classList.remove('show'); }, dur);
+}
+function openModal(id)  { $(id).classList.add('open'); }
+function closeModal(id) { $(id).classList.remove('open'); }
+
+function fmtDate(d) {
+  try { return new Date(d).toLocaleDateString('ar-SA',{year:'numeric',month:'long',day:'numeric'}); }
+  catch(e){ return ''; }
+}
+function catClass(c)  { return ({health:'cat-h',study:'cat-s',religion:'cat-r',money:'cat-m'})[c]||'cat-s'; }
+function catIcon(c)   { return ({health:'🏃',study:'📚',religion:'🕌',money:'💰',other:'📌'})[c]||'📌'; }
+function catName(c)   { return ({health:'الصحة',study:'الدراسة',religion:'الدين',money:'المال',other:'أخرى'})[c]||'أخرى'; }
+function accentColor(c){ return ({health:'#34d399',study:'#a78bfa',religion:'#fbbf24',money:'#38bdf8'})[c]||'#a78bfa'; }
+
+// Safe int/float parsers — never return NaN
+function safeInt(v, fallback)   { var n=parseInt(v,10);   return isNaN(n)?( fallback||0):n; }
+function safeFloat(v, fallback) { var n=parseFloat(v);    return isNaN(n)?( fallback||0):n; }
+
+// ═══════════════════════════════════════
+// DATABASE
+// ═══════════════════════════════════════
+const DB_KEY  = 'mseeraData_v4';
+const JRN_KEY = 'mseeraJournal_v4';
+function dbLoad() {
+  var keys = [DB_KEY,'mseeraData_v3','mseeraData','goalTrackerData'];
+  for(var i=0;i<keys.length;i++){
+    try{
+      var raw=localStorage.getItem(keys[i]);
+      if(!raw) continue;
+      var d=JSON.parse(raw);
+      if(d && Array.isArray(d.goals)){
+        if(keys[i]!==DB_KEY) localStorage.setItem(DB_KEY,raw);
+        return d;
+      }
+    }catch(e){}
+  }
+  return {goals:[],dailyTasks:[],savings:[],rewards:[],completions:{},
+    points:0,spentPoints:0,level:1,currentStreak:0,longestStreak:0,
+    lastCompletionDate:null,pointHistory:{}};
+}
+
+function dbSave() {
+  try{ localStorage.setItem(DB_KEY, JSON.stringify(db)); return true; } catch(e){ return false; }
+}
+
+var db = dbLoad();
+// Ensure all numeric fields are valid numbers — fix NaN from old data
+db.points     = safeInt(db.points, 0);
+db.spentPoints= safeInt(db.spentPoints, 0);
+db.level      = safeInt(db.level, 1);
+if(db.level < 1) db.level = 1;
+db.currentStreak  = safeInt(db.currentStreak, 0);
+db.longestStreak  = safeInt(db.longestStreak, 0);
+if(!db.pointHistory) db.pointHistory = {};
+if(!db.completions)  db.completions  = {};
+if(!Array.isArray(db.goals))      db.goals      = [];
+if(!Array.isArray(db.dailyTasks)) db.dailyTasks = [];
+if(!Array.isArray(db.savings))    db.savings    = [];
+if(!Array.isArray(db.rewards))    db.rewards    = [];
+
+// ═══════════════════════════════════════
+// STREAK — SINGLE SOURCE OF TRUTH
+// ═══════════════════════════════════════
+function todayStr()     { return new Date().toDateString(); }
+function yesterdayStr() { var d=new Date(); d.setDate(d.getDate()-1); return d.toDateString(); }
+
+// Recalculate streak by walking backwards through completion history
+function calcFullStreak() {
+  var streak = 0;
+  var d = new Date();
+  for(var i=0; i<365; i++){
+    var key = d.toDateString();
+    var done = (db.completions[key]||[]).length;
+    if(done > 0){ streak++; d.setDate(d.getDate()-1); }
+    else break;
+  }
+  return streak;
+}
+
+// Called once on load — ensures streak is accurate
+function initStreak() {
+  var today     = todayStr();
+  var yesterday = yesterdayStr();
+  var last      = db.lastCompletionDate;
+  // If last completion date is old (before yesterday), streak must be 0
+  if(last && last !== today && last !== yesterday){
+    db.currentStreak = 0;
+    // don't clear lastCompletionDate, keep for history
+  }
+  // Always sync streak by recalculating from actual data
+  var realStreak = calcFullStreak();
+  db.currentStreak = realStreak;
+  if(db.currentStreak > db.longestStreak) db.longestStreak = db.currentStreak;
+  dbSave();
+}
+
+// Called every time a task is toggled
+function syncStreak() {
+  var realStreak = calcFullStreak();
+  db.currentStreak = realStreak;
+  if(db.currentStreak > db.longestStreak) db.longestStreak = db.currentStreak;
+  // Update lastCompletionDate to the most recent day with completions
+  var d = new Date();
+  for(var i=0; i<365; i++){
+    var key = d.toDateString();
+    if((db.completions[key]||[]).length > 0){
+      db.lastCompletionDate = key;
+      break;
+    }
+    d.setDate(d.getDate()-1);
+  }
+}
+
+// ═══════════════════════════════════════
+// LEVEL — always calculated fresh
+// ═══════════════════════════════════════
+function syncLevel() {
+  var total = safeInt(db.points,0) + safeInt(db.spentPoints,0);
+  db.level  = Math.floor(total / 1000) + 1;
+}
+
+// ═══════════════════════════════════════
+// HEADER — single function, always consistent
+// ═══════════════════════════════════════
+function updateHeader() {
+  syncLevel();
+  var pts    = safeInt(db.points, 0);
+  var lv     = safeInt(db.level,  1);
+  var streak = safeInt(db.currentStreak, 0);
+  var pct    = Math.min(100, Math.floor(((pts % 1000) / 1000) * 100));
+  var today  = todayStr();
+  var todayDone = (db.completions[today]||[]).length;
+  var cGoals = db.goals.filter(function(g){ return g.completed; }).length;
+
+  // Topbar
+  $('tStreak').textContent = streak;
+  $('tPts').textContent    = pts;
+  $('tLv').textContent     = lv;
+  // Sidebar
+  $('sLevel').textContent  = lv;
+  $('sPts').textContent    = pts;
+  $('sStreak').textContent = streak;
+  $('sGoals').textContent  = cGoals + '/' + db.goals.length;
+  $('sDone').textContent   = todayDone;
+  $('xpFill').style.width  = pct + '%';
+}
+
+// ═══════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════
+var QUOTES = [
+  '"النجاح هو مجموع الجهود الصغيرة المتكررة يوماً بعد يوم" — روبرت كولير',
+  '"لا تنتظر اللحظة المناسبة، اصنعها" — جورج برنارد شو',
+  '"الانضباط هو الجسر بين الأهداف والإنجاز" — جيم رون',
+  '"البداية هي أهم جزء في العمل" — أفلاطون',
+  '"كل إنجاز عظيم بدأ بقرار المحاولة"',
+  '"من جد وجد ومن سار على الدرب وصل"',
+  '"اجعل كل يوم تحفةً فنية" — جون وودن',
+  '"إذا أردت أن تعيش حياة سعيدة، اربطها بهدف" — أينشتاين',
+  '"الإرادة تصنع المعجزات" — مثل عربي',
+  '"لا يهم كم مرة تسقط، يهم كم مرة تقوم"',
+];
+
+function showRandQuote() {
+  $('dashQuote').textContent = QUOTES[Math.floor(Math.random()*QUOTES.length)];
+}
+
+function updateDashboard() {
+  var today     = todayStr();
+  var todayDone = (db.completions[today]||[]).length;
+  var total     = db.dailyTasks.length;
+  var pct       = total > 0 ? Math.round((todayDone/total)*100) : 0;
+  var completed = db.goals.filter(function(g){ return g.completed; }).length;
+  var streak    = safeInt(db.currentStreak, 0);
+
+  $('dGoals').textContent   = db.goals.length;
+  $('dDone').textContent    = completed;
+  $('dToday').textContent   = todayDone;
+  $('dTotal').textContent   = total;
+  $('dLong').textContent    = safeInt(db.longestStreak, 0);
+  $('dStreak').textContent  = streak;
+  $('todayPct').textContent = pct + '%';
+  $('todayFill').style.width= pct + '%';
+
+  // Streak message
+  var msg = 'أنجز مهمة اليوم لتبدأ سلسلتك 💪';
+  if     (streak >= 30) msg = 'شهر كامل — أنت أسطورة! 🏆👑';
+  else if(streak >= 14) msg = 'أسبوعان متتاليان — مثابر حقيقي! 💎';
+  else if(streak >= 7)  msg = 'أسبوع كامل — رائع جداً! 🌟';
+  else if(streak >= 3)  msg = '3 أيام — أنت في المسار الصحيح! 🔥';
+  else if(streak === 1) msg = 'اليوم الأول — الرحلة تبدأ الآن! 🚀';
+  else if(streak > 1)   msg = 'استمر وحافظ على سلسلتك! 🔥';
+  $('streakMsg').textContent = msg;
+
+  // Backup banner
+  var lastBk = localStorage.getItem('mseeraLastBackup');
+  var bb = $('backupBanner');
+  var hasData = db.goals.length > 0 || db.dailyTasks.length > 0;
+  if(hasData){
+    var daysSince = lastBk ? (Date.now()-parseInt(lastBk,10))/86400000 : 999;
+    bb.style.display = daysSince > 3 ? 'flex' : 'none';
+  } else { bb.style.display='none'; }
+}
+
+// ═══════════════════════════════════════
+// GOALS
+// ═══════════════════════════════════════
+function saveGoal() {
+  var title = $('gTitle').value.trim();
+  if(!title){ toast('⚠️ أدخل عنوان الهدف'); return; }
+  var stepsRaw = $('gSteps').value.trim();
+  var steps = stepsRaw
+    ? stepsRaw.split('\n').filter(function(s){ return s.trim(); }).map(function(s){ return {text:s.trim(),done:false}; })
+    : [];
+  db.goals.push({
+    id:Date.now(), title:title, category:$('gCat').value,
+    description:$('gDesc').value.trim(), deadline:$('gDeadline').value,
+    steps:steps, completed:false, createdAt:new Date().toISOString()
+  });
+  dbSave();
+  $('gTitle').value=''; $('gDesc').value=''; $('gSteps').value=''; $('gDeadline').value='';
+  closeModal('goalModal');
+  toast('✅ تم إضافة الهدف!');
+  renderGoals(); updateDashboard(); updateHeader();
+}
+
+function renderGoals() {
+  var c = $('goalsGrid');
+  var goals = db.goals.filter(function(g){ return !g.completed; });
+  if(!goals.length){
+    c.innerHTML='<div class="empty"><div class="empty-ico">🎯</div><div class="empty-txt">لا توجد أهداف نشطة — ابدأ بهدفك الأول!</div></div>';
+    return;
+  }
+  c.innerHTML = goals.map(function(g){
+    var steps = g.steps||[];
+    var doneSt = steps.filter(function(s){ return s.done; }).length;
+    var pct = steps.length > 0 ? Math.round((doneSt/steps.length)*100) : 0;
+    var color = accentColor(g.category);
+    var dl = g.deadline ? '<div class="goal-dl">📅 '+fmtDate(g.deadline)+'</div>' : '';
+    var stepsHtml = steps.map(function(s,i){
+      return '<div class="goal-step-row">'
+        +'<input type="checkbox"'+(s.done?' checked':'')
+        +' onchange="toggleStep('+g.id+','+i+',this.checked)">'
+        +'<span style="'+(s.done?'text-decoration:line-through;color:var(--textfaint)':'')+'">'+s.text+'</span></div>';
+    }).join('');
+    var progHtml = steps.length > 0
+      ? '<div class="prog-wrap"><div class="prog-meta"><span>التقدم</span><span>'+doneSt+'/'+steps.length+' ('+pct+'%)</span></div>'
+        +'<div class="prog-track"><div class="prog-fill" style="width:'+pct+'%"></div></div></div>'
+      : '';
+    return '<div class="card goal-card">'
+      +'<div class="goal-accent" style="background:'+color+'"></div>'
+      +'<span class="goal-tag '+catClass(g.category)+'">'+catIcon(g.category)+' '+catName(g.category)+'</span>'
+      +'<div class="goal-name">'+g.title+'</div>'
+      +(g.description?'<div class="goal-desc">'+g.description+'</div>':'')
+      +dl+progHtml+stepsHtml
+      +'<div class="goal-actions">'
+        +'<button class="btn btn-em btn-sm" onclick="completeGoal('+g.id+')">🏆 إكمال</button>'
+        +'<button class="btn btn-ghost btn-sm" onclick="deleteGoal('+g.id+')">🗑️ حذف</button>'
+      +'</div></div>';
+  }).join('');
+}
+
+window.toggleStep = function(goalId, idx, checked){
+  var g = db.goals.find(function(x){ return x.id===goalId; });
+  if(!g) return;
+  g.steps[idx].done = checked;
+  dbSave(); renderGoals();
+};
+
+window.completeGoal = function(id){
+  var g = db.goals.find(function(x){ return x.id===id; });
+  if(!g || g.completed) return;
+  g.completed = true; g.completedAt = new Date().toISOString();
+  db.points = safeInt(db.points,0) + 500;
+  syncLevel(); dbSave(); confetti();
+  toast('🏆 مبروك! أكملت الهدف وحصلت على 500 نقطة!',4000);
+  renderGoals(); renderArchive(); updateDashboard(); updateHeader(); checkAchievements();
+};
+
+window.deleteGoal = function(id){
+  if(!confirm('حذف هذا الهدف نهائياً؟')) return;
+  db.goals = db.goals.filter(function(g){ return g.id!==id; });
+  dbSave(); toast('🗑️ تم الحذف'); renderGoals(); updateDashboard(); updateHeader();
+};
+
+// ═══════════════════════════════════════
+// DAILY TASKS
+// ═══════════════════════════════════════
+function isTaskDoneToday(id){ return (db.completions[todayStr()]||[]).indexOf(id) > -1; }
+
+function saveTask() {
+  var title = $('tTitle').value.trim();
+  if(!title){ toast('⚠️ أدخل اسم المهمة'); return; }
+  db.dailyTasks.push({
+    id:Date.now(), title:title,
+    points:safeInt($('tPts').value, 10),
+    category:$('tCat').value,
+    streak:0, completions:0, createdAt:new Date().toISOString()
+  });
+  dbSave(); $('tTitle').value=''; closeModal('taskModal');
+  toast('✅ تم إضافة المهمة!');
+  renderDailyTasks(); updateDashboard(); updateHeader();
+}
+
+function renderDailyTasks() {
+  var today     = todayStr();
+  var todayDone = (db.completions[today]||[]).length;
+  var total     = db.dailyTasks.length;
+  var pct       = total > 0 ? Math.round((todayDone/total)*100) : 0;
+  var todayPts  = db.dailyTasks
+    .filter(function(t){ return isTaskDoneToday(t.id); })
+    .reduce(function(s,t){ return s + safeInt(t.points,0); }, 0);
+  var streak    = safeInt(db.currentStreak, 0);
+
+  $('dailySummary').innerHTML =
+    '<div class="ds-item"><div class="ds-val">'+todayDone+'/'+total+'</div><div class="ds-lbl">✅ مكتملة</div></div>'
+   +'<div class="ds-item"><div class="ds-val">'+pct+'%</div><div class="ds-lbl">📈 نسبة اليوم</div></div>'
+   +'<div class="ds-item"><div class="ds-val">'+todayPts+'</div><div class="ds-lbl">⭐ نقاط اليوم</div></div>'
+   +'<div class="ds-item"><div class="ds-val">'+streak+'</div><div class="ds-lbl">🔥 السلسلة</div></div>';
+
+  var c = $('tasksList');
+  if(!db.dailyTasks.length){
+    c.innerHTML='<div class="empty"><div class="empty-ico">✅</div><div class="empty-txt">لا توجد مهام — أضف مهمتك الأولى!</div></div>';
+    return;
+  }
+  var sorted = db.dailyTasks.slice().sort(function(a,b){
+    return (isTaskDoneToday(a.id)?1:0) - (isTaskDoneToday(b.id)?1:0);
+  });
+  c.innerHTML = sorted.map(function(t){
+    var done = isTaskDoneToday(t.id);
+    var tStreak = safeInt(t.streak, 0);
+    var stBadge = tStreak >= 3 ? '<div class="task-streak-badge">🔥 '+tStreak+' يوم</div>' : '';
+    return '<div class="card task-row'+(done?' done-row':'')+'">'
+      +'<div class="task-check'+(done?' done':'')+'" onclick="toggleTask('+t.id+')">'+(done?'✓':'')+'</div>'
+      +'<div class="task-info">'
+        +'<div class="task-name">'+t.title+'</div>'
+        +'<div class="task-pts">'+catIcon(t.category||'other')+' '+catName(t.category||'other')
+          +' • ⭐ '+safeInt(t.points,0)+' نقطة'
+          +' • '+safeInt(t.completions,0)+' مرة مكتملة</div>'
+      +'</div>'
+      +stBadge
+      +'<button class="task-del" onclick="deleteTask('+t.id+')" title="حذف">🗑️</button>'
+    +'</div>';
+  }).join('');
+}
+
+window.toggleTask = function(id){
+  var today = todayStr();
+  if(!db.completions[today]) db.completions[today] = [];
+  var idx  = db.completions[today].indexOf(id);
+  var task = db.dailyTasks.find(function(t){ return t.id===id; });
+  if(!task) return;
+  var pts = safeInt(task.points, 0);
+
+  if(idx > -1){
+    // Uncheck
+    db.completions[today].splice(idx,1);
+    db.points = Math.max(0, safeInt(db.points,0) - pts);
+    task.completions = Math.max(0, safeInt(task.completions,0) - 1);
+    toast('↩️ تم إلغاء الإنجاز');
+  } else {
+    // Check
+    db.completions[today].push(id);
+    db.points = safeInt(db.points,0) + pts;
+    task.completions = safeInt(task.completions,0) + 1;
+    // Task personal streak
+    var yesterday = yesterdayStr();
+    var yDone = (db.completions[yesterday]||[]).indexOf(id) > -1;
+    task.streak = yDone ? safeInt(task.streak,0) + 1 : 1;
+    // Record points history
+    db.pointHistory[today] = safeInt(db.pointHistory[today],0) + pts;
+    var s = safeInt(db.currentStreak,0);
+    toast('🎉 رائع! +'+pts+' نقطة  •  🔥 السلسلة: '+s+' يوم');
+    // All done today?
+    var total = db.dailyTasks.length;
+    var done  = (db.completions[today]||[]).length;
+    if(total > 0 && done === total){
+      setTimeout(function(){ confetti(); toast('🏆 أنجزت جميع مهام اليوم! استثنائي!',4000); },600);
+    }
+  }
+
+  syncStreak(); syncLevel(); dbSave();
+  renderDailyTasks(); updateDashboard(); updateHeader(); checkAchievements();
+};
+
+window.deleteTask = function(id){
+  if(!confirm('حذف هذه المهمة؟')) return;
+  db.dailyTasks = db.dailyTasks.filter(function(t){ return t.id!==id; });
+  Object.keys(db.completions).forEach(function(k){
+    db.completions[k] = db.completions[k].filter(function(x){ return x!==id; });
+  });
+  syncStreak(); syncLevel(); dbSave();
+  toast('🗑️ تم الحذف'); renderDailyTasks(); updateDashboard(); updateHeader();
+};
+
+// ═══════════════════════════════════════
+// SAVINGS
+// ═══════════════════════════════════════
+function saveSaving() {
+  var amount = safeFloat($('savAmount').value, -1);
+  if(amount <= 0){ toast('⚠️ أدخل مبلغاً صحيحاً'); return; }
+  db.savings.push({id:Date.now(), amount:amount, note:$('savNote').value.trim(), date:new Date().toISOString()});
+  dbSave(); $('savAmount').value=''; $('savNote').value='';
+  closeModal('savingModal'); toast('💰 تم تسجيل الادخار!'); renderSavings();
+}
+
+function renderSavings() {
+  var total = db.savings.reduce(function(s,x){ return s+safeFloat(x.amount,0); },0);
+  var now = new Date();
+  var month = db.savings.filter(function(s){
+    var d=new Date(s.date);
+    return d.getMonth()===now.getMonth() && d.getFullYear()===now.getFullYear();
+  }).reduce(function(s,x){ return s+safeFloat(x.amount,0); },0);
+  $('savTotal').textContent = total.toLocaleString('ar-DZ',{minimumFractionDigits:2});
+  $('savMonth').textContent = month.toLocaleString('ar-DZ',{minimumFractionDigits:2});
+  var c = $('savList');
+  if(!db.savings.length){
+    c.innerHTML='<div class="empty" style="padding:2rem"><div class="empty-ico">💰</div><div class="empty-txt">لم تسجل أي ادخار بعد</div></div>';
+    return;
+  }
+  c.innerHTML = db.savings.slice().reverse().map(function(s){
+    var amt = safeFloat(s.amount,0);
+    return '<div class="sav-item">'
+      +'<div><div class="sav-item-amount">+'+amt.toLocaleString('ar-DZ',{minimumFractionDigits:2})+' دج</div>'
+      +(s.note?'<div class="sav-item-note">'+s.note+'</div>':'')+'</div>'
+      +'<div style="display:flex;align-items:center;gap:.5rem">'
+        +'<div class="sav-item-date">'+fmtDate(s.date)+'</div>'
+        +'<button class="sav-item-del" onclick="deleteSaving('+s.id+')">🗑️</button>'
+      +'</div></div>';
+  }).join('');
+}
+
+window.deleteSaving = function(id){
+  if(!confirm('حذف هذا السجل؟')) return;
+  db.savings = db.savings.filter(function(s){ return s.id!==id; });
+  dbSave(); toast('🗑️ تم الحذف'); renderSavings();
+};
+
+// ═══════════════════════════════════════
+// REWARDS
+// ═══════════════════════════════════════
+function saveReward() {
+  var title = $('rTitle').value.trim();
+  var cost  = safeInt($('rCost').value, 0);
+  if(!title){ toast('⚠️ أدخل اسم المكافأة'); return; }
+  if(cost <= 0){ toast('⚠️ أدخل تكلفة صحيحة'); return; }
+  db.rewards.push({id:Date.now(), title:title, cost:cost, description:$('rDesc').value.trim(), claimed:false, createdAt:new Date().toISOString()});
+  dbSave(); $('rTitle').value=''; $('rCost').value=''; $('rDesc').value='';
+  closeModal('rewardModal'); toast('🎁 تم إضافة المكافأة!'); renderRewards();
+}
+
+function renderRewards() {
+  var c = $('rewardsGrid');
+  if(!db.rewards.length){
+    c.innerHTML='<div class="empty"><div class="empty-ico">🎁</div><div class="empty-txt">لا توجد مكافآت — أضف مكافأة لتحفيز نفسك!</div></div>';
+    return;
+  }
+  var pts = safeInt(db.points, 0);
+  c.innerHTML = db.rewards.map(function(r){
+    var cost = safeInt(r.cost,0);
+    var canClaim = !r.claimed && pts >= cost;
+    var diff = cost - pts;
+    return '<div class="card reward-card">'
+      +'<div class="reward-name">'+r.title+'</div>'
+      +(r.description?'<div class="reward-desc">'+r.description+'</div>':'')
+      +'<div class="reward-cost">⭐ '+cost.toLocaleString()+' نقطة</div>'
+      +(r.claimed
+        ? '<div class="reward-claimed">✅ تم الحصول عليها</div>'
+        : '<button class="btn '+(canClaim?'btn-gold':'btn-ghost')+'" style="width:100%;margin-bottom:.4rem"'
+          +' onclick="claimReward('+r.id+')"'+(canClaim?'':' disabled')+'>'
+          +(canClaim ? '🎁 احصل عليها' : '🔒 تحتاج '+diff.toLocaleString()+' نقطة')
+          +'</button>')
+      +'<button class="btn btn-ghost btn-sm" style="width:100%" onclick="deleteReward('+r.id+')">🗑️ حذف</button>'
+    +'</div>';
+  }).join('');
+}
+
+window.claimReward = function(id){
+  var r = db.rewards.find(function(x){ return x.id===id; });
+  if(!r || r.claimed) return;
+  var cost = safeInt(r.cost,0);
+  var pts  = safeInt(db.points,0);
+  if(pts < cost){ toast('❌ نقاط غير كافية'); return; }
+  db.points      = pts - cost;
+  db.spentPoints = safeInt(db.spentPoints,0) + cost;
+  r.claimed = true;
+  syncLevel(); dbSave(); confetti();
+  toast('🎉 مبروك! حصلت على مكافأتك!');
+  renderRewards(); updateHeader();
+};
+
+window.deleteReward = function(id){
+  if(!confirm('حذف هذه المكافأة؟')) return;
+  db.rewards = db.rewards.filter(function(r){ return r.id!==id; });
+  dbSave(); toast('🗑️ تم الحذف'); renderRewards();
+};
+
+// ═══════════════════════════════════════
+// ACHIEVEMENTS — 10 realistic ones
+// ═══════════════════════════════════════
+var ACHIEVEMENTS = [
+  { id:'first_task',   icon:'🌱', name:'الخطوة الأولى',   desc:'أنجز مهمتك الأولى',
+    ok:function(){ return Object.values(db.completions).flat().length >= 1; }},
+  { id:'streak3',      icon:'🔥', name:'اللهب المشتعل',   desc:'3 أيام متتالية',
+    ok:function(){ return safeInt(db.longestStreak,0) >= 3; }},
+  { id:'streak7',      icon:'🌟', name:'الأسبوع الكامل',  desc:'7 أيام متتالية',
+    ok:function(){ return safeInt(db.longestStreak,0) >= 7; }},
+  { id:'streak30',     icon:'👑', name:'ملك الانضباط',    desc:'30 يوم متتالي',
+    ok:function(){ return safeInt(db.longestStreak,0) >= 30; }},
+  { id:'goal1',        icon:'🎯', name:'أول هدف محقق',    desc:'أكمل هدفاً واحداً',
+    ok:function(){ return db.goals.filter(function(g){ return g.completed; }).length >= 1; }},
+  { id:'goal5',        icon:'🏅', name:'محقق الأهداف',    desc:'أكمل 5 أهداف',
+    ok:function(){ return db.goals.filter(function(g){ return g.completed; }).length >= 5; }},
+  { id:'pts500',       icon:'⭐', name:'جامع النقاط',     desc:'اجمع 500 نقطة',
+    ok:function(){ return safeInt(db.points,0)+safeInt(db.spentPoints,0) >= 500; }},
+  { id:'pts3000',      icon:'💎', name:'المتميز',          desc:'اجمع 3000 نقطة',
+    ok:function(){ return safeInt(db.points,0)+safeInt(db.spentPoints,0) >= 3000; }},
+  { id:'sav10000',     icon:'💰', name:'المدخر الذكي',    desc:'ادخر 10,000 دج',
+    ok:function(){ return db.savings.reduce(function(s,x){ return s+safeFloat(x.amount,0); },0) >= 10000; }},
+  { id:'lv5',          icon:'🚀', name:'الصاعد للقمة',    desc:'بلغ المستوى 5',
+    ok:function(){ return safeInt(db.level,1) >= 5; }},
+];
+
+var _unlockedAchs = new Set(JSON.parse(localStorage.getItem('mseeraAchs')||'[]'));
+
+function checkAchievements() {
+  var newUnlock = false;
+  ACHIEVEMENTS.forEach(function(a){
+    if(!_unlockedAchs.has(a.id) && a.ok()){
+      _unlockedAchs.add(a.id); newUnlock = true;
+      setTimeout(function(){ toast('🏆 إنجاز جديد مفتوح: '+a.name+'!',4000); },800);
+    }
+  });
+  if(newUnlock){
+    localStorage.setItem('mseeraAchs', JSON.stringify([..._unlockedAchs]));
+    renderAchievements();
+  }
+}
+
+function renderAchievements() {
+  var unlocked = ACHIEVEMENTS.filter(function(a){ return a.ok(); });
+  var locked   = ACHIEVEMENTS.filter(function(a){ return !a.ok(); });
+  function renderList(arr, isUnlocked){
+    return arr.map(function(a){
+      return '<div class="ach-card '+(isUnlocked?'unlocked':'locked')+'">'
+        +(isUnlocked?'<div class="ach-badge">مكتسب ✓</div>':'')
+        +'<div class="ach-icon">'+a.icon+'</div>'
+        +'<div class="ach-name">'+a.name+'</div>'
+        +'<div class="ach-desc">'+a.desc+'</div>'
+      +'</div>';
+    }).join('');
+  }
+  $('achGrid').innerHTML = renderList(unlocked,true) + renderList(locked,false);
+}
+
+// ═══════════════════════════════════════
+// STATS
+// ═══════════════════════════════════════
+function updateStats() {
+  var totalPts  = safeInt(db.points,0) + safeInt(db.spentPoints,0);
+  var allDone   = Object.values(db.completions).flat().length;
+  var activeDays= Object.keys(db.completions).filter(function(k){ return (db.completions[k]||[]).length>0; }).length;
+  var totalPoss = activeDays * db.dailyTasks.length;
+  var rate      = totalPoss > 0 ? Math.round((allDone/totalPoss)*100) : 0;
+
+  $('statsGrid').innerHTML =
+    '<div class="card stat-tile"><div class="stat-val" style="color:var(--gold)">'+totalPts.toLocaleString()+'</div><div class="stat-lbl">نقاط إجمالية</div></div>'
+   +'<div class="card stat-tile"><div class="stat-val" style="color:var(--rose)">'+safeInt(db.currentStreak,0)+'</div><div class="stat-lbl">السلسلة الحالية</div></div>'
+   +'<div class="card stat-tile"><div class="stat-val" style="color:var(--emerald)">'+safeInt(db.longestStreak,0)+'</div><div class="stat-lbl">أطول سلسلة</div></div>'
+   +'<div class="card stat-tile"><div class="stat-val" style="color:var(--violet)">'+safeInt(db.level,1)+'</div><div class="stat-lbl">المستوى الحالي</div></div>'
+   +'<div class="card stat-tile"><div class="stat-val">'+allDone+'</div><div class="stat-lbl">إجمالي الإنجازات</div></div>'
+   +'<div class="card stat-tile"><div class="stat-val">'+activeDays+'</div><div class="stat-lbl">أيام نشطة</div></div>'
+   +'<div class="card stat-tile"><div class="stat-val">'+rate+'%</div><div class="stat-lbl">معدل الإنجاز</div></div>'
+   +'<div class="card stat-tile"><div class="stat-val">'+db.goals.filter(function(g){ return g.completed; }).length+'</div><div class="stat-lbl">أهداف مكتملة</div></div>';
+
+  var bars = db.dailyTasks.map(function(t){
+    var total = Object.keys(db.completions).length||1;
+    var doneC = Object.values(db.completions).filter(function(arr){ return arr.indexOf(t.id)>-1; }).length;
+    var p = Math.round((doneC/Math.max(total,1))*100);
+    var col = p>=70?'var(--emerald)':p>=40?'var(--gold)':'var(--rose)';
+    return '<div class="stat-progress-item">'
+      +'<div class="spi-label">'+t.title+'</div>'
+      +'<div class="spi-track"><div class="spi-fill" style="width:'+p+'%;background:'+col+'"></div></div>'
+      +'<div class="spi-val">'+p+'%</div></div>';
+  }).join('');
+  $('statProgress').innerHTML = bars || '<div style="color:var(--textfaint);font-size:.85rem;padding:.5rem">لا توجد مهام بعد</div>';
+}
+
+// ═══════════════════════════════════════
+// CHARTS — 2 charts, guaranteed to work
+// ═══════════════════════════════════════
+var _charts = {};
+function destroyCharts(){
+  Object.keys(_charts).forEach(function(k){ try{ _charts[k].destroy(); }catch(e){} });
+  _charts = {};
+}
+
+function renderCharts() {
+  destroyCharts();
+  var dayNames = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+
+  // Chart 1 — Weekly tasks bar
+  var labels7=[]; var data7=[];
+  for(var i=6;i>=0;i--){
+    var dd=new Date(); dd.setDate(dd.getDate()-i);
+    labels7.push(dayNames[dd.getDay()]);
+    data7.push((db.completions[dd.toDateString()]||[]).length);
+  }
+
+  var el1 = $('weeklyChart');
+  if(el1){
+    _charts.weekly = new Chart(el1, {
+      type:'bar',
+      data:{
+        labels:labels7,
+        datasets:[{
+          label:'مهام منجزة',
+          data:data7,
+          backgroundColor:data7.map(function(v,i){ return i===6?'rgba(56,189,248,0.85)':'rgba(56,189,248,0.3)'; }),
+          borderColor:'#38bdf8', borderWidth:2, borderRadius:8,
+        }]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:true,
+        plugins:{ legend:{ labels:{ font:{family:'Tajawal',size:12}, color:'#94a3b8' } } },
+        scales:{
+          y:{ beginAtZero:true, ticks:{ stepSize:1, font:{family:'Tajawal'}, color:'#94a3b8' }, grid:{ color:'rgba(255,255,255,0.04)' } },
+          x:{ ticks:{ font:{family:'Tajawal'}, color:'#94a3b8' }, grid:{ display:false } }
+        }
+      }
+    });
+  }
+
+  // Chart 2 — Category doughnut
+  var cats={health:0,study:0,religion:0,money:0};
+  db.goals.forEach(function(g){ if(cats[g.category]!==undefined) cats[g.category]++; });
+  var el2 = $('catChart');
+  if(el2){
+    _charts.cat = new Chart(el2, {
+      type:'doughnut',
+      data:{
+        labels:['🏃 الصحة','📚 الدراسة','🕌 الدين','💰 المال'],
+        datasets:[{
+          data:[cats.health,cats.study,cats.religion,cats.money],
+          backgroundColor:['rgba(52,211,153,0.8)','rgba(167,139,250,0.8)','rgba(251,191,36,0.8)','rgba(56,189,248,0.8)'],
+          borderColor:['#34d399','#a78bfa','#fbbf24','#38bdf8'], borderWidth:2
+        }]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:true,
+        plugins:{ legend:{ position:'bottom', labels:{ font:{family:'Tajawal',size:12}, color:'#94a3b8', padding:15 } } }
+      }
+    });
+  }
+}
+
+// ═══════════════════════════════════════
+// ARCHIVE
+// ═══════════════════════════════════════
+function renderArchive() {
+  var c = $('archGrid');
+  var arch = db.goals.filter(function(g){ return g.completed; });
+  if(!arch.length){
+    c.innerHTML='<div class="empty"><div class="empty-ico">📦</div><div class="empty-txt">لا توجد أهداف مكتملة بعد</div></div>';
+    return;
+  }
+  c.innerHTML = arch.map(function(g){
+    return '<div class="card arch-card">'
+      +'<span class="goal-tag '+catClass(g.category)+'">'+catIcon(g.category)+' '+catName(g.category)+'</span>'
+      +'<div class="arch-title">✅ '+g.title+'</div>'
+      +(g.description?'<div class="goal-desc" style="margin-top:.3rem">'+g.description+'</div>':'')
+      +'<div class="arch-meta">'
+        +(g.completedAt?'🎉 مكتمل: '+fmtDate(g.completedAt):'')
+        +(g.deadline?' • الموعد: '+fmtDate(g.deadline):'')
+      +'</div></div>';
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+// JOURNAL
+// ═══════════════════════════════════════
+var _chosenMood = '';
+function pickMood(btn){
+  document.querySelectorAll('.mood-btn').forEach(function(b){ b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  _chosenMood = btn.dataset.mood;
+}
+
+function getJournal(){ try{ return JSON.parse(localStorage.getItem(JRN_KEY)||localStorage.getItem('mseeraJournal_v3')||localStorage.getItem('mseeraJournal')||'[]'); }catch(e){ return []; } }
+function saveJrnData(d){ localStorage.setItem(JRN_KEY, JSON.stringify(d)); }
+
+function initJournal(){
+  var now = new Date();
+  $('jDate').textContent = now.toLocaleDateString('ar-SA',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  var entries = getJournal();
+  var key = now.toDateString();
+  var te = entries.find(function(e){ return e.key===key; });
+  if(te){
+    [['Sleep','sSleep','vSleep'],['Energy','sEnergy','vEnergy'],['Focus','sFocus','vFocus'],
+     ['Stress','sStress','vStress'],['Nutrition','sNutrition','vNutrition'],['Activity','sActivity','vActivity']]
+    .forEach(function(f){
+      var sl=$(f[1]), vl=$(f[2]);
+      if(sl&&vl){ sl.value=te[f[0].toLowerCase()]||sl.value; vl.textContent=sl.value; }
+    });
+    if($('jNotes')) $('jNotes').value=te.notes||'';
+    _chosenMood=te.mood||'';
+    document.querySelectorAll('.mood-btn').forEach(function(b){ b.classList.toggle('selected',b.dataset.mood===_chosenMood); });
+  }
+  renderJournalHistory();
+}
+
+function saveJournal(){
+  var key = new Date().toDateString();
+  var entry = {
+    key:key,
+    dateStr:new Date().toLocaleDateString('ar-SA',{weekday:'long',year:'numeric',month:'long',day:'numeric'}),
+    sleep:safeFloat($('sSleep').value,7), energy:safeInt($('sEnergy').value,5),
+    focus:safeInt($('sFocus').value,5),  stress:safeInt($('sStress').value,3),
+    nutrition:safeInt($('sNutrition').value,5), activity:safeInt($('sActivity').value,3),
+    mood:_chosenMood||'😐', notes:$('jNotes').value.trim(),
+    done:(db.completions[key]||[]).length, total:db.dailyTasks.length
+  };
+  var arr=getJournal().filter(function(e){ return e.key!==key; });
+  arr.unshift(entry); saveJrnData(arr);
+  toast('📔 تم حفظ مذكرة اليوم!');
+  showJournalAnalysis(entry); renderJournalHistory();
+}
+
+function showJournalAnalysis(e){
+  var box=$('jAnalysis'), content=$('jAnalysisContent');
+  box.style.display='block';
+  var rate=e.total>0?Math.round((e.done/e.total)*100):0;
+  var factors=[],tips=[];
+  if(e.sleep<5)       { factors.push('😴 قلة نوم حادة ('+e.sleep+'س)'); tips.push('🌙 حدد وقت نوم ثابت وابعد الشاشات قبله'); }
+  else if(e.sleep<6.5){ factors.push('😴 نوم غير كافٍ ('+e.sleep+'س)'); tips.push('🌙 أضف 30-60 دقيقة نوم غداً'); }
+  if(e.stress>=8)     { factors.push('😣 توتر شديد ('+e.stress+'/10)'); tips.push('🧘 اكتب 3 أشياء أنجزتها اليوم قبل النوم'); }
+  else if(e.stress>=6){ factors.push('😣 توتر ملحوظ ('+e.stress+'/10)'); tips.push('🚶 15 دقيقة مشي تخفف التوتر'); }
+  if(e.focus<=3)      { factors.push('🎯 تركيز ضعيف ('+e.focus+'/10)'); tips.push('⏱️ جرب تقنية بوودورو غداً — 25 دقيقة تركيز'); }
+  if(e.nutrition<=3)  { factors.push('🍎 تغذية سيئة ('+e.nutrition+'/10)'); tips.push('🥗 حضّر وجبة صحية مسبقاً'); }
+  if(e.activity<=2)   { factors.push('🏃 لا نشاط بدني'); tips.push('🏃 ولو 10 دقائق مشي تفرق الكثير'); }
+  if(rate<30&&e.total>0){ factors.push('✅ إنجاز منخفض ('+rate+'%)'); tips.push('📋 اختر 3 مهام فقط غداً وركّز عليها'); }
+  if(!tips.length) tips.push('💪 حافظ على نفس الروتين غداً — أنت تسير بشكل ممتاز!');
+  var diag=!factors.length
+    ?(e.energy>=7&&e.focus>=7&&rate>=70?'✨ يوم ممتاز! طاقة عالية وإنجاز رائع.':'☀️ يوم مقبول، لا مشاكل كبيرة.')
+    :'<strong>السبب الرئيسي:</strong> '+factors[0]+(factors.length>1?'<br><small style="color:var(--textfaint)">إضافية: '+factors.slice(1).join(' | ')+'</small>':'');
+  content.innerHTML='<div style="margin-bottom:.65rem">'+diag+'</div>'
+    +'<strong style="color:var(--sky);font-size:.82rem">🛠️ توصيات لغداً:</strong>'
+    +'<div style="margin-top:.4rem;color:var(--textsoft);font-size:.83rem">'+tips.map(function(t,i){ return (i+1)+'. '+t; }).join('<br>')+'</div>';
+}
+
+function renderJournalHistory(){
+  var c=$('jHistory'), arr=getJournal();
+  if(!arr.length){ c.innerHTML='<div class="empty" style="padding:2rem"><div class="empty-ico">📔</div><div class="empty-txt">لم تسجل أي يوم بعد</div></div>'; return; }
+  c.innerHTML=arr.map(function(e){
+    var rate=e.total>0?Math.round((e.done/e.total)*100):0;
+    var sC=e.sleep>=7?'g':e.sleep>=6?'o':'r';
+    var stC=e.stress<=4?'g':e.stress<=6?'o':'r';
+    var fC=e.focus>=7?'g':e.focus>=5?'o':'r';
+    var rC=rate>=70?'g':rate>=40?'o':'r';
+    return '<div class="hist-entry">'
+      +'<div class="hist-top"><span class="hist-date">📅 '+e.dateStr+'</span><span style="font-size:1.3rem">'+e.mood+'</span></div>'
+      +'<div class="hist-chips">'
+        +'<span class="chip '+sC+'">🌙 '+e.sleep+'س</span>'
+        +'<span class="chip '+fC+'">🎯 '+e.focus+'/10</span>'
+        +'<span class="chip '+stC+'">😣 '+e.stress+'/10</span>'
+        +'<span class="chip">⚡ '+e.energy+'/10</span>'
+        +'<span class="chip '+rC+'">✅ '+e.done+'/'+e.total+' ('+rate+'%)</span>'
+      +'</div>'
+      +(e.notes?'<div style="font-size:.78rem;color:var(--textfaint);margin-top:.4rem;font-style:italic">"'+e.notes+'"</div>':'')
+    +'</div>';
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+// BACKUP / RESTORE
+// ═══════════════════════════════════════
+function exportData(){
+  var payload={version:4, exportedAt:new Date().toISOString(), mseeraData:db, mseeraJournal:getJournal()};
+  var blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  var d=new Date().toLocaleDateString('ar-SA').replace(/\//g,'-');
+  a.download='مسيرة-نسخة-احتياطية-'+d+'.json';
+  a.click();
+  localStorage.setItem('mseeraLastBackup', Date.now().toString());
+  updateDashboard();
+  toast('💾 تم حفظ النسخة الاحتياطية! احفظها في مكان آمن.');
+}
+
+function triggerImport(){ $('importFile').click(); }
+
+function handleImport(event){
+  var file=event.target.files[0]; if(!file) return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var payload=JSON.parse(e.target.result);
+      var data=payload.mseeraData||payload;
+      if(!data.goals||!data.dailyTasks){ toast('⚠️ ملف غير صحيح'); return; }
+      if(!confirm('سيتم استبدال بياناتك الحالية. متأكد؟')) return;
+      localStorage.setItem(DB_KEY, JSON.stringify(data));
+      if(payload.mseeraJournal) localStorage.setItem(JRN_KEY, JSON.stringify(payload.mseeraJournal));
+      toast('✅ تم الاستيراد! سيتم إعادة التحميل...');
+      setTimeout(function(){ location.reload(); },1500);
+    }catch(err){ toast('⚠️ خطأ في قراءة الملف'); }
+  };
+  reader.readAsText(file);
+  event.target.value='';
+}
+
+// ═══════════════════════════════════════
+// THEME
+// ═══════════════════════════════════════
+function toggleTheme(){
+  document.body.classList.toggle('light');
+  var isLight=document.body.classList.contains('light');
+  localStorage.setItem('mseeraTheme', isLight?'light':'dark');
+  $('themeBtn').textContent = isLight?'🌙':'☀️';
+}
+function loadTheme(){
+  var t=localStorage.getItem('mseeraTheme');
+  if(t==='light'){ document.body.classList.add('light'); $('themeBtn').textContent='🌙'; }
+}
+
+// ═══════════════════════════════════════
+// TAB NAVIGATION
+// ═══════════════════════════════════════
+var TAB_TITLES={
+  dashboard:'لوحة التحكم', goals:'الأهداف', daily:'المهام اليومية',
+  journal:'مذكرتي', charts:'الرسوم البيانية', stats:'الإحصائيات',
+  savings:'الادخار', rewards:'المكافآت', achievements:'الإنجازات', archive:'الأرشيف'
+};
+
+function switchTab(tab){
+  document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(c){ c.classList.remove('active'); });
+  var btn=document.querySelector('.nav-btn[data-tab="'+tab+'"]');
+  if(btn) btn.classList.add('active');
+  var el=$('tab-'+tab); if(el) el.classList.add('active');
+  $('pageTitle').textContent = TAB_TITLES[tab]||'';
+  if(tab==='dashboard')   updateDashboard();
+  if(tab==='goals')       renderGoals();
+  if(tab==='daily')       renderDailyTasks();
+  if(tab==='savings')     renderSavings();
+  if(tab==='rewards')     renderRewards();
+  if(tab==='achievements')renderAchievements();
+  if(tab==='stats')       updateStats();
+  if(tab==='archive')     renderArchive();
+  if(tab==='charts')      renderCharts();
+  if(tab==='journal')     initJournal();
+  closeSidebar();
+}
+
+document.querySelectorAll('.nav-btn[data-tab]').forEach(function(btn){
+  btn.addEventListener('click', function(){ switchTab(btn.dataset.tab); });
+});
+
+document.querySelectorAll('.modal').forEach(function(m){
+  m.addEventListener('click', function(e){ if(e.target===m) m.classList.remove('open'); });
+});
+
+// ═══════════════════════════════════════
+// MOBILE
+// ═══════════════════════════════════════
+function openSidebar()  { $('sidebar').classList.add('open');    $('mobOverlay').classList.add('active'); }
+function closeSidebar() { $('sidebar').classList.remove('open'); $('mobOverlay').classList.remove('active'); }
+
+// ═══════════════════════════════════════
+// CONFETTI
+// ═══════════════════════════════════════
+function confetti(){
+  var colors=['#38bdf8','#a78bfa','#fbbf24','#34d399','#fb7185'];
+  for(var i=0;i<45;i++){
+    var el=document.createElement('div');
+    el.className='confetti-piece';
+    el.style.cssText='left:'+Math.random()*100+'vw;top:-10px;'
+      +'background:'+colors[Math.floor(Math.random()*colors.length)]+';'
+      +'animation-delay:'+Math.random()*0.5+'s;'
+      +'animation-duration:'+(2+Math.random())+'s;'
+      +'width:'+(6+Math.random()*6)+'px;height:'+(6+Math.random()*6)+'px;'
+      +'border-radius:'+(Math.random()>0.5?'50%':'2px')+';';
+    document.body.appendChild(el);
+    setTimeout(function(){ el.remove(); },3500);
+  }
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+function init(){
+  initStreak(); // must be first — fixes streak from real data
+  loadTheme();
+  updateHeader();
+  updateDashboard();
+  renderGoals();
+  renderDailyTasks();
+  renderSavings();
+  renderRewards();
+  renderAchievements();
+  renderArchive();
+  showRandQuote();
+  checkAchievements();
+}
+
+init();
+
+// ═══════════════════════════════════════
+// PWA — Service Worker & Install
+// ═══════════════════════════════════════
+var deferredInstallPrompt = null;
+var swRegistration = null;
+
+function registerSW() {
+  if (!("serviceWorker" in navigator)) { return; }
+  navigator.serviceWorker.register("./sw.js")
+    .then(function(reg) {
+      swRegistration = reg;
+      console.log("[PWA] SW registered:", reg.scope);
+      reg.addEventListener("updatefound", function() {
+        var newWorker = reg.installing;
+        newWorker.addEventListener("statechange", function() {
+          if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+            var banner = document.getElementById("updateBanner");
+            if (banner) banner.style.display = "flex";
+          }
+        });
+      });
+    })
+    .catch(function(err) { console.warn("[PWA] SW failed:", err); });
+}
+
+function applyUpdate() {
+  if (swRegistration && swRegistration.waiting) {
+    swRegistration.waiting.postMessage("skipWaiting");
+  }
+  window.location.reload();
+}
+
+window.addEventListener("beforeinstallprompt", function(e) {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  var btn = document.getElementById("installBtn");
+  var btnSide = document.getElementById("installBtnSidebar");
+  if (btn) btn.style.display = "inline-flex";
+  if (btnSide) btnSide.style.display = "block";
+});
+
+function installPWA() {
+  if (!deferredInstallPrompt) {
+    toast("📱 افتح قائمة المتصفح واختر: إضافة إلى الشاشة الرئيسية");
+    return;
+  }
+  deferredInstallPrompt.prompt();
+  deferredInstallPrompt.userChoice.then(function(result) {
+    if (result.outcome === "accepted") {
+      toast("🎉 تم تثبيت مسيرة على جهازك!");
+      confetti();
+      document.getElementById("installBtn").style.display = "none";
+      document.getElementById("installBtnSidebar").style.display = "none";
+    } else {
+      toast("يمكنك التثبيت لاحقاً من زر التثبيت 📲");
+    }
+    deferredInstallPrompt = null;
+  });
+}
+
+window.addEventListener("appinstalled", function() {
+  deferredInstallPrompt = null;
+  var btn = document.getElementById("installBtn");
+  var btnSide = document.getElementById("installBtnSidebar");
+  if (btn) btn.style.display = "none";
+  if (btnSide) btnSide.style.display = "none";
+  console.log("[PWA] Installed!");
+});
+
+var origToggleTheme = toggleTheme;
+toggleTheme = function() {
+  origToggleTheme();
+  var isLight = document.body.classList.contains("light");
+  var meta = document.getElementById("themeMetaColor");
+  if (meta) meta.setAttribute("content", isLight ? "#f0f4f8" : "#0ea5e9");
+};
+
+registerSW();
+
+</script>
+</body>
+</html>
